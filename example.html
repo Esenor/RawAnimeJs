@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+</HEAD>
+<BODY>
+  <style>
+    #container {margin-top: 20px; overflow: hidden; height: 400px; width: 600px;}
+    div {display: inline-block; width:10px; height:10px; background: rgba(0, 0, 0, 0.15); border-radius: 999px; position: absolute;}
+  </style>
+  <section>
+    <button onclick="add(1)">add</button>
+    <button onclick="add(5)">add 5</button>
+    <button onclick="add(10)">add 10</button>
+    <button onclick="add(50)">add 50</button>
+    <button onclick="add(100)">add 100</button>
+    <button onclick="stuff()">run</button>
+  </section>
+  <section id="container">
+  </section>
+  <script src="anime.min.js"></script>
+  <script>
+  function add(counter) {
+    var section = document.getElementById("container");
+    for (var i = 0; i < counter; i++) {
+      var node = document.createElement("div");
+      node.style.background  = 'rgba(' + anime.random(0, 255) + ', ' + anime.random(0, 255) + ', ' + anime.random(0, 255) + ', 0.' + anime.random(1, 6) +')';
+      section.appendChild(node);
+    }
+  }
+  function stuff() {
+    var taille = anime.random(1, 30);
+    setTimeout(function () {
+      var myAnimation = anime({
+        targets: ['div'],
+        translateX: function(el, index) {
+          taille = anime.random(1, 20);
+          return anime.random(0, 100);
+        },
+        translateY: function(el, index) {
+          return anime.random(0, 100);
+        },
+        width: function(el, index) {
+          return taille;
+        },
+        height: function(el, index) {
+          return taille;
+        },
+        duration: anime.random(800, 1200),
+      });
+      stuff();
+    }, 1000);
+  }
+  </script>
+</BODY>
+</HTML>
